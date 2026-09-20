@@ -1,4 +1,4 @@
-const CACHE_NAME = "golden-compass-v1";
+const CACHE_NAME = "golden-compass-v2";
 
 const FILES_TO_CACHE = [
     "./",
