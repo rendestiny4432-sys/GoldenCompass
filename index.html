@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,
+        initial-scale=1.0,
+        viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#17140e">
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="黄金の旅路"
+    >
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="./icon-192.png"
+    >
+
+    <title>
+        黄金の旅路コンパス
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+            min-height: 100dvh;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background:
+
+                radial-gradient(
+                    circle at top,
+                    #332a16 0%,
+                    #1b1811 45%,
+                    #0f0e0b 100%
+                );
+
+            color: white;
+
+            font-family:
+
+                -apple-system,
+                BlinkMacSystemFont,
+                "Yu Gothic",
+                "Yu Gothic UI",
+                sans-serif;
+
+            text-align: center;
+
+            -webkit-user-select: none;
+
+            user-select: none;
+
+        }
+
+
+        .app {
+
+            width: 94%;
+
+            max-width: 680px;
+
+            padding:
+
+                max(
+                    30px,
+                    env(safe-area-inset-top)
+                )
+
+                15px
+
+                max(
+                    30px,
+                    env(safe-area-inset-bottom)
+                );
+
+        }
+
+
+        h1 {
+
+            margin:
+                0 0 18px;
+
+            font-size:
+
+                clamp(
+                    25px,
+                    7vw,
+                    38px
+                );
+
+        }
+
+
+        .subtitle {
+
+            margin-bottom:
+                32px;
+
+            color:
+                #e7dfce;
+
+            font-size:
+                16px;
+
+            line-height:
+                1.8;
+
+        }
+
+
+        .compass-button {
+
+            width:
+                min(
+                    100%,
+                    390px
+                );
+
+            padding:
+                19px 22px;
+
+            border:
+                2px solid #f3d77c;
+
+            border-radius:
+                19px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #f4d264,
+                    #c99729
+                );
+
+            color:
+                #17120a;
+
+            font-size:
+                18px;
+
+            font-weight:
+                bold;
+
+            box-shadow:
+
+                0 6px 22px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.4
+                );
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .compass-button:active {
+
+            transform:
+                scale(0.96);
+
+        }
+
+
+        #movieScreen {
+
+            display:
+                none;
+
+        }
+
+
+        .movie-title {
+
+            margin-bottom:
+                15px;
+
+            color:
+                #efcf73;
+
+            font-size:
+                17px;
+
+        }
+
+
+        #specialMovie {
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            max-height:
+                72vh;
+
+            border:
+                1px solid
+                rgba(
+                    239,
+                    201,
+                    92,
+                    0.65
+                );
+
+            border-radius:
+                18px;
+
+            background:
+                black;
+
+            box-shadow:
+
+                0 10px 35px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.55
+                );
+
+        }
+
+
+        #result {
+
+            display:
+                none;
+
+            padding:
+                30px 18px;
+
+            border:
+                1px solid
+                rgba(
+                    239,
+                    201,
+                    92,
+                    0.55
+                );
+
+            border-radius:
+                22px;
+
+            background:
+
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.045
+                );
+
+            box-shadow:
+
+                0 8px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.3
+                );
+
+        }
+
+
+        .result-title {
+
+            margin-bottom:
+                22px;
+
+            color:
+                #e8dfc8;
+
+            font-size:
+                15px;
+
+        }
+
+
+        .destination {
+
+            margin-bottom:
+                28px;
+
+            font-size:
+
+                clamp(
+                    22px,
+                    6vw,
+                    31px
+                );
+
+            font-weight:
+                bold;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .rating-title {
+
+            margin-bottom:
+                8px;
+
+            color:
+                #e8dfc8;
+
+            font-size:
+                15px;
+
+        }
+
+
+        .stars {
+
+            min-height:
+                48px;
+
+            color:
+                #ffd65a;
+
+            font-size:
+
+                clamp(
+                    31px,
+                    9vw,
+                    45px
+                );
+
+            letter-spacing:
+                3px;
+
+            text-shadow:
+
+                0 0 12px
+                rgba(
+                    255,
+                    214,
+                    90,
+                    0.35
+                );
+
+        }
+
+
+        .anego {
+
+            margin-top:
+                25px;
+
+            font-size:
+                16px;
+
+            line-height:
+                1.9;
+
+        }
+
+
+        .journey {
+
+            margin-top:
+                18px;
+
+            color:
+                #efcf73;
+
+            font-size:
+                16px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        #againButton {
+
+            display:
+                none;
+
+            margin-top:
+                25px;
+
+        }
+
+
+        #errorMessage {
+
+            display:
+                none;
+
+            margin-top:
+                25px;
+
+            color:
+                #ffd27a;
+
+            line-height:
+                1.8;
+
+        }
+
+
+        .offline-note {
+
+            margin-top:
+                28px;
+
+            color:
+                #a99c7b;
+
+            font-size:
+                12px;
+
+        }
+
+
+        @media (
+            max-width: 500px
+        ) {
+
+            .app {
+
+                width:
+                    96%;
+
+                padding-left:
+                    10px;
+
+                padding-right:
+                    10px;
+
+            }
+
+
+            #result {
+
+                padding:
+                    27px 12px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<main class="app">
+
+
+    <!-- ======================================
+         スタート
+         ====================================== -->
+
+    <section id="startScreen">
+
+
+        <h1>
+
+            🏇 黄金の旅路コンパス 🧭
+
+        </h1>
+
+
+        <div class="subtitle">
+
+            100の旅路から、<br>
+
+            今日の行き先を
+            コンパスに聞いてみよう。
+
+        </div>
+
+
+        <button
+
+            class="compass-button"
+
+            onclick="throwCompass()"
+
+        >
+
+            🧭 コンパスを投げる！
+
+        </button>
+
+
+        <div class="offline-note">
+
+            コンパスの赴くままに。
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ======================================
+         動画
+         ====================================== -->
+
+    <section id="movieScreen">
+
+
+        <div class="movie-title">
+
+            ✨ 黄金の旅路 ✨
+
+        </div>
+
+
+        <video
+
+            id="specialMovie"
+
+            playsinline
+
+            preload="auto"
+
+        >
+
+            <source
+
+                src="./ステイゴールド　固有演出.mp4"
+
+                type="video/mp4"
+
+            >
+
+        </video>
+
+
+    </section>
+
+
+    <!-- ======================================
+         結果
+         ====================================== -->
+
+    <section id="result">
+
+
+        <div class="result-title">
+
+            コンパスが示した
+            今日の旅路は……！
+
+        </div>
+
+
+        <div
+
+            id="destination"
+
+            class="destination"
+
+        >
+        </div>
+
+
+        <div class="rating-title">
+
+            今日の当たり度
+
+        </div>
+
+
+        <div
+
+            id="stars"
+
+            class="stars"
+
+        >
+        </div>
+
+
+        <div
+
+            id="anegoMessage"
+
+            class="anego"
+
+        >
+        </div>
+
+
+        <div class="journey">
+
+            コンパスの赴くままに！
+
+        </div>
+
+
+    </section>
+
+
+    <button
+
+        id="againButton"
+
+        class="compass-button"
+
+        onclick="throwCompass()"
+
+    >
+
+        🧭 もう一度コンパスを投げる！
+
+    </button>
+
+
+    <div id="errorMessage">
+    </div>
+
+
+</main>
+
+
+<script>
+
+
+// ==========================================================
+// 行き先100か所
+// ==========================================================
+
+const places = [
+
+    "阿寒湖へ行く 🏞️",
+    "知床を旅する 🐻",
+    "網走でオホーツク海を見る 🌊",
+    "摩周湖の神秘を見に行く 🏞️",
+    "釧路湿原を歩く 🌿",
+    "帯広で豚丼を食べる 🐷",
+    "美瑛の丘を旅する 🌾",
+    "富良野の景色を見に行く 🌼",
+    "小樽の運河を歩く ⚓",
+    "函館の夜景を見る 🌃",
+
+    "青森で海の幸を食べる 🐟",
+    "奥入瀬渓流を歩く 🌿",
+    "弘前城を見に行く 🏯",
+    "盛岡でわんこそばに挑む 🍜",
+    "平泉をのんびり歩く ⛩️",
+    "松島を眺める 🌊",
+    "銀山温泉へ行く ♨️",
+    "蔵王の大自然を見る ⛰️",
+    "会津若松を旅する 🏯",
+    "大内宿を歩く 🏡",
+
+    "日光を散策する ⛩️",
+    "草津温泉へ行く ♨️",
+    "伊香保温泉へ行く ♨️",
+    "秩父を気ままに歩く 🏞️",
+    "東京を目的もなく歩く 🗼",
+    "浅草で食べ歩きする 🍡",
+    "お台場で海を見る 🌊",
+    "横浜の港を歩く ⚓",
+    "鎌倉を散策する ⛩️",
+    "江ノ島で夕日を見る 🌅",
+
+    "箱根で温泉に入る ♨️",
+    "河口湖から富士山を見る 🗻",
+    "伊豆半島を旅する 🌊",
+    "熱海で温泉に入る ♨️",
+    "佐渡島へ渡ってみる ⛴️",
+    "軽井沢をのんびり歩く 🌲",
+    "松本城を見に行く 🏯",
+    "上高地を歩く ⛰️",
+    "善光寺へ行く ⛩️",
+    "白馬の山を眺める ⛰️",
+
+    "金沢の街を歩く 🍵",
+    "能登半島を旅する 🌊",
+    "東尋坊を見に行く 🌊",
+    "白川郷へ行く 🏡",
+    "飛騨高山を歩く 🏘️",
+    "名古屋で美味しいものを探す 🍤",
+    "犬山城を見に行く 🏯",
+    "伊勢神宮へ行く ⛩️",
+    "鳥羽で海を見る 🌊",
+    "熊野古道を歩く 🌲",
+
+    "琵琶湖を眺める 🌊",
+    "京都を気ままに歩く 🍁",
+    "嵐山を散策する 🎋",
+    "宇治でお茶を飲む 🍵",
+    "奈良で鹿と遊ぶ 🦌",
+    "大阪で食い倒れる 🐙",
+    "新世界を歩く 🗼",
+    "神戸の港を歩く ⚓",
+    "有馬温泉へ行く ♨️",
+    "姫路城を見に行く 🏯",
+
+    "城崎温泉へ行く ♨️",
+    "淡路島を旅する 🌊",
+    "鳥取砂丘を歩く 🐪",
+    "境港で妖怪を探す 👻",
+    "出雲大社へ行く ⛩️",
+    "石見銀山を歩く ⛰️",
+    "倉敷の街並みを歩く 🏘️",
+    "尾道の坂道を歩く 🐈",
+    "宮島へ渡る ⛩️",
+    "秋芳洞を探検する 🪨",
+
+    "しまなみ海道を旅する 🚲",
+    "道後温泉へ行く ♨️",
+    "四万十川を眺める 🌊",
+    "高知でカツオを食べる 🐟",
+    "祖谷渓を旅する ⛰️",
+    "鳴門の渦潮を見る 🌊",
+    "金刀比羅宮へ行く ⛩️",
+    "門司港を散策する ⚓",
+    "太宰府を散策する ⛩️",
+    "糸島の海を見に行く 🌊",
+
+    "柳川で川下りをする 🛶",
+    "長崎の街を歩く ⚓",
+    "軍艦島を眺める 🏝️",
+    "雲仙温泉へ行く ♨️",
+    "阿蘇の大地を走る ⛰️",
+    "黒川温泉へ行く ♨️",
+    "天草の海を見に行く 🌊",
+    "別府で温泉三昧 ♨️",
+    "湯布院を散策する ♨️",
+    "高千穂峡を歩く 🌿",
+
+    "宮崎の海岸を走る 🌴",
+    "桜島を眺める 🌋",
+    "霧島を旅する ⛰️",
+    "指宿で砂むし温泉に入る ♨️",
+    "屋久島を歩く 🌲",
+    "奄美大島の海を見る 🌊",
+    "沖縄の海を見に行く 🏝️",
+    "石垣島を旅する 🌴",
+    "知らない駅で降りてみる 🚃",
+    "コンパスだけを頼りに旅へ出る 🧭"
+
+];
+
+
+// ==========================================================
+// ★コメント
+// ==========================================================
+
+const messages = {
+
+    1:
+        "アネゴ「まあ、こんな日もあるさ。<br>" +
+        "寄り道も旅のうちだ！」",
+
+    2:
+        "アネゴ「悪くない。<br>" +
+        "のんびり行こうぜ、アナタ。」",
+
+    3:
+        "アネゴ「いいじゃん。<br>" +
+        "面白い旅になりそうだ。」",
+
+    4:
+        "アネゴ「おっ、かなりいいぞアナタ！」",
+
+    5:
+        "アネゴ「来たな……<br>" +
+        "キラッキラの景色だ！」"
+
+};
+
+
+// ==========================================================
+// 部品
+// ==========================================================
+
+const startScreen =
+    document.getElementById(
+        "startScreen"
+    );
+
+const movieScreen =
+    document.getElementById(
+        "movieScreen"
+    );
+
+const movie =
+    document.getElementById(
+        "specialMovie"
+    );
+
+const result =
+    document.getElementById(
+        "result"
+    );
+
+const againButton =
+    document.getElementById(
+        "againButton"
+    );
+
+const errorMessage =
+    document.getElementById(
+        "errorMessage"
+    );
+
+
+// ==========================================================
+// コンパス
+// ==========================================================
+
+function throwCompass() {
+
+    startScreen.style.display =
+        "none";
+
+    result.style.display =
+        "none";
+
+    againButton.style.display =
+        "none";
+
+    errorMessage.style.display =
+        "none";
+
+    movieScreen.style.display =
+        "block";
+
+
+    movie.pause();
+
+    movie.currentTime = 0;
+
+
+    const playPromise =
+        movie.play();
+
+
+    if (
+        playPromise !== undefined
+    ) {
+
+        playPromise.catch(
+
+            function () {
+
+                movieScreen.style.display =
+                    "none";
+
+                errorMessage.innerHTML =
+                    "アネゴ「むむっ……" +
+                    "固有演出が再生できないぞ！」";
+
+                errorMessage.style.display =
+                    "block";
+
+                againButton.style.display =
+                    "inline-block";
+
+            }
+
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// 動画終了
+// ==========================================================
+
+movie.addEventListener(
+
+    "ended",
+
+    function () {
+
+        movieScreen.style.display =
+            "none";
+
+        showResult();
+
+    }
+
+);
+
+
+// ==========================================================
+// 結果
+// ==========================================================
+
+function showResult() {
+
+    const destination =
+
+        places[
+
+            Math.floor(
+
+                Math.random()
+                *
+                places.length
+
+            )
+
+        ];
+
+
+    const rating =
+
+        Math.floor(
+            Math.random() * 5
+        ) + 1;
+
+
+    const stars =
+
+        "★".repeat(
+            rating
+        )
+
+        +
+
+        "☆".repeat(
+            5 - rating
+        );
+
+
+    document.getElementById(
+        "destination"
+    ).textContent =
+        destination;
+
+
+    document.getElementById(
+        "stars"
+    ).textContent =
+        stars;
+
+
+    document.getElementById(
+        "anegoMessage"
+    ).innerHTML =
+        messages[rating];
+
+
+    result.style.display =
+        "block";
+
+
+    againButton.style.display =
+        "inline-block";
+
+}
+
+
+// ==========================================================
+// Service Worker登録
+// ==========================================================
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+
+        "load",
+
+        function () {
+
+            navigator
+                .serviceWorker
+                .register(
+                    "./service-worker.js"
+                );
+
+        }
+
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
